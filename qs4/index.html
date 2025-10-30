@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LearnHub - Online Learning Platform</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .navbar {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            padding: 1rem 0;
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.4rem;
+            margin-right: 2rem;
+        }
+
+        .nav-link {
+            color: rgba(255,255,255,0.8) !important;
+            margin: 0 10px;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+
+        .nav-link:hover {
+            color: white !important;
+            text-decoration: underline;
+        }
+
+        .nav-link.active {
+            color: white !important;
+            border-bottom: 2px solid white;
+        }
+
+        .login-btn {
+            background: rgba(255,255,255,0.2) !important;
+            border: 2px solid white !important;
+            color: white !important;
+            padding: 6px 20px;
+            border-radius: 6px;
+            transition: all 0.3s;
+        }
+
+        .login-btn:hover {
+            background: white !important;
+            color: #667eea !important;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 80px 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 300px;
+            height: 300px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(20px); }
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-btn {
+            background: white;
+            color: #667eea;
+            border: none;
+            padding: 12px 40px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .hero-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        .container-main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        section {
+            padding: 60px 20px;
+        }
+
+        section h2 {
+            text-align: center;
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        section > p {
+            text-align: center;
+            color: #666;
+            margin-bottom: 50px;
+            font-size: 1.1rem;
+        }
+
+        .featured-courses {
+            background: #f8f9fa;
+        }
+
+        .course-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            margin-bottom: 20px;
+        }
+
+        .course-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+        }
+
+        .course-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            position: relative;
+        }
+
+        .course-level {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #667eea;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .course-content {
+            padding: 20px;
+        }
+
+        .course-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .course-instructor {
+            color: #667eea;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .course-rating {
+            color: #ffc107;
+            margin-bottom: 12px;
+            font-size: 0.9rem;
+        }
+
+        .course-description {
+            color: #666;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            margin-bottom: 15px;
+        }
+
+        .course-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 15px;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        .course-price {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #667eea;
+        }
+
+        .btn-enroll {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .btn-enroll:hover {
+            background: #764ba2;
+            color: white;
+        }
+
+        .courses-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .carousel-container {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .carousel {
+            position: relative;
+        }
+
+        .carousel-item {
+            display: none;
+        }
+
+        .carousel-item.active {
+            display: block;
+            animation: slideIn 0.5s ease;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .carousel-controls {
+            text-align: center;
+            padding: 15px;
+            background: #f8f9fa;
+        }
+
+        .carousel-btn {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            margin: 0 5px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .carousel-btn:hover {
+            background: #764ba2;
+        }
+
+        .testimonials {
+            background: linear-gradient(135deg, #667eea15 0%, #764ba215 100%);
+        }
+
+        .testimonial-card {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            margin-bottom: 20px;
+        }
+
+        .testimonial-text {
+            color: #666;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 15px;
+            font-style: italic;
+        }
+
+        .testimonial-author {
+            font-weight: 700;
+            color: #333;
+        }
+
+        .cta-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-align: center;
+            padding: 80px 20px;
+            border-radius: 12px;
+            margin: 60px 20px;
+        }
+
+        .cta-section h2 {
+            color: white;
+            font-size: 2.2rem;
+            margin-bottom: 20px;
+        }
+
+        .cta-section p {
+            color: rgba(255,255,255,0.9);
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+        }
+
+        .cta-btn {
+            background: white;
+            color: #667eea;
+            border: none;
+            padding: 12px 40px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        .modal-content {
+            border-radius: 12px;
+            border: none;
+        }
+
+        .modal-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+        }
+
+        .modal-header .btn-close {
+            filter: brightness(0) invert(1);
+        }
+
+        .login-form {
+            padding: 30px 0;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .form-control {
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 12px;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        .form-control:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+        }
+
+        .error {
+            color: #dc3545;
+            font-size: 0.85rem;
+            margin-top: 5px;
+            display: none;
+        }
+
+        footer {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 60px;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            section h2 {
+                font-size: 1.6rem;
+            }
+
+            .courses-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .navbar-nav {
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">📚 LearnHub</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link active" href="#featured">Featured</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#courses">Courses</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#testimonials">Reviews</a></li>
+                    <li class="nav-item"><button class="login-btn" data-bs-toggle="modal" data-bs-target="#loginModal">🔐 Login</button></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="hero">
+        <h1>Welcome to LearnHub</h1>
+        <p>Master new skills with expert-led courses</p>
+        <button class="hero-btn" data-bs-toggle="modal" data-bs-target="#loginModal">Get Started Free</button>
+    </div>
+
+    <div class="container-main">
+        <!-- Featured Courses Section -->
+        <section class="featured-courses" id="featured">
+            <h2>✨ Featured Courses</h2>
+            <p>Our most popular courses selected just for you</p>
+            
+            <div class="carousel-container">
+                <div class="carousel" id="featuredCarousel">
+                    <div class="carousel-item active">
+                        <div class="course-card">
+                            <div class="course-image">
+                                📱
+                                <div class="course-level">Beginner</div>
+                            </div>
+                            <div class="course-content">
+                                <h5 class="course-title">Web Development Basics</h5>
+                                <div class="course-instructor">👨‍🏫 John Smith</div>
+                                <div class="course-rating">⭐⭐⭐⭐⭐ (2,450 reviews)</div>
+                                <p class="course-description">Learn HTML5, CSS3, and JavaScript from scratch. Perfect for beginners who want to start their web development journey.</p>
+                                <div class="course-footer">
+                                    <span class="course-price">$49</span>
+                                    <button class="btn-enroll">Enroll Now</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="carousel-item">
+                        <div class="course-card">
+                            <div class="course-image">
+                                ⚛️
+                                <div class="course-level">Intermediate</div>
+                            </div>
+                            <div class="course-content">
+                                <h5 class="course-title">React.js Mastery</h5>
+                                <div class="course-instructor">👩‍🏫 Sarah Johnson</div>
+                                <div class="course-rating">⭐⭐⭐⭐⭐ (3,120 reviews)</div>
+                                <p class="course-description">Build modern, scalable web applications with React. Learn hooks, state management, and best practices.</p>
+                                <div class="course-footer">
+                                    <span class="course-price">$79</span>
+                                    <button class="btn-enroll">Enroll Now</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="carousel-item">
+                        <div class="course-card">
+                            <div class="course-image">
+                                🐍
+                                <div class="course-level">Advanced</div>
+                            </div>
+                            <div class="course-content">
+                                <h5 class="course-title">Python for Data Science</h5>
+                                <div class="course-instructor">👨‍💼 Mike Chen</div>
+                                <div class="course-rating">⭐⭐⭐⭐⭐ (2,890 reviews)</div>
+                                <p class="course-description">Master data analysis, visualization, and machine learning with Python. Includes real-world projects.</p>
+                                <div class="course-footer">
+                                    <span class="course-price">$99</span>
+                                    <button class="btn-enroll">Enroll Now</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-controls">
+                    <button class="carousel-btn" id="prevBtn">← Previous</button>
+                    <button class="carousel-btn" id="nextBtn">Next →</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Browse Courses Section -->
+        <section id="courses">
+            <h2>🎯 Browse All Courses</h2>
+            <p>Choose from hundreds of professional courses</p>
+
+            <div class="courses-grid" id="coursesGrid">
+                <div class="course-card">
+                    <div class="course-image">🎨<div class="course-level">Beginner</div></div>
+                    <div class="course-content">
+                        <h5 class="course-title">UI/UX Design Fundamentals</h5>
+                        <div class="course-instructor">👩‍🎨 Emma Wilson</div>
+                        <div class="course-rating">⭐⭐⭐⭐ (1,560 reviews)</div>
+                        <p class="course-description">Learn design principles, wireframing, and prototyping for modern interfaces.</p>
+                        <div class="course-footer">
+                            <span class="course-price">$59</span>
+                            <button class="btn-enroll">Enroll Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="course-card">
+                    <div class="course-image">☁️<div class="course-level">Intermediate</div></div>
+                    <div class="course-content">
+                        <h5 class="course-title">AWS Cloud Architecture</h5>
+                        <div class="course-instructor">👨‍💼 David Lee</div>
+                        <div class="course-rating">⭐⭐⭐⭐⭐ (2,340 reviews)</div>
+                        <p class="course-description">Deploy and manage applications on AWS. Learn EC2, S3, Lambda, and more.</p>
+                        <div class="course-footer">
+                            <span class="course-price">$89</span>
+                            <button class="btn-enroll">Enroll Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="course-card">
+                    <div class="course-image">🤖<div class="course-level">Advanced</div></div>
+                    <div class="course-content">
+                        <h5 class="course-title">Machine Learning & AI</h5>
+                        <div class="course-instructor">👨‍🔬 Prof. Alan Turing</div>
+                        <div class="course-rating">⭐⭐⭐⭐⭐ (1,890 reviews)</div>
+                        <p class="course-description">Build intelligent systems with machine learning algorithms and neural networks.</p>
+                        <div class="course-footer">
+                            <span class="course-price">$129</span>
+                            <button class="btn-enroll">Enroll Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="course-card">
+                    <div class="course-image">📊<div class="course-level">Intermediate</div></div>
+                    <div class="course-content">
+                        <h5 class="course-title">Data Analytics Bootcamp</h5>
+                        <div class="course-instructor">👩‍💻 Lisa Brown</div>
+                        <div class="course-rating">⭐⭐⭐⭐ (3,210 reviews)</div>
+                        <p class="course-description">Transform raw data into actionable insights using SQL, Tableau, and Excel.</p>
+                        <div class="course-footer">
+                            <span class="course-price">$79</span>
+                            <button class="btn-enroll">Enroll Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="course-card">
+                    <div class="course-image">🔒<div class="course-level">Advanced</div></div>
+                    <div class="course-content">
+                        <h5 class="course-title">Cybersecurity Essentials</h5>
+                        <div class="course-instructor">👨‍💼 James Gordon</div>
+                        <div class="course-rating">⭐⭐⭐⭐⭐ (2,670 reviews)</div>
+                        <p class="course-description">Protect systems and data with advanced security practices and ethical hacking.</p>
+                        <div class="course-footer">
+                            <span class="course-price">$109</span>
+                            <button class="btn-enroll">Enroll Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="course-card">
+                    <div class="course-image">📱<div class="course-level">Beginner</div></div>
+                    <div class="course-content">
+                        <h5 class="course-title">Mobile App Development</h5>
+                        <div class="course-instructor">👩‍💻 Rachel Green</div>
+                        <div class="course-rating">⭐⭐⭐⭐ (2,450 reviews)</div>
+                        <p class="course-description">Create native and cross-platform mobile applications for iOS and Android.</p>
+                        <div class="course-footer">
+                            <span class="course-price">$69</span>
+                            <button class="btn-enroll">Enroll Now</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials Section -->
+        <section class="testimonials" id="testimonials">
+            <h2>💬 Student Testimonials</h2>
+            <p>Hear from learners who transformed their careers</p>
+
+            <div class="courses-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-text">"LearnHub completely changed my career! I went from a manual tester to a full-stack developer in just 6 months. Highly recommended!"</div>
+                    <div class="testimonial-author">⭐⭐⭐⭐⭐ Alex Kumar</div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="testimonial-text">"The courses are well-structured and the instructors are experts in their fields. I learned more here than in my college courses!"</div>
+                    <div class="testimonial-author">⭐⭐⭐⭐⭐ Priya Sharma</div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="testimonial-text">"Affordable, comprehensive, and flexible learning. Perfect for working professionals like me who want to upskill."</div>
+                    <div class="testimonial-author">⭐⭐⭐⭐⭐ Rohan Singh</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <div class="cta-section">
+            <h2>Ready to Start Learning?</h2>
+            <p>Join thousands of students and advance your skills today</p>
+            <button class="cta-btn" data-bs-toggle="modal" data-bs-target="#loginModal">Sign Up Now</button>
+        </div>
+    </div>
+
+    <!-- Login Modal -->
+    <div class="modal fade" id="loginModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Login to LearnHub</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form class="login-form" id="loginForm">
+                        <div class="form-group">
+                            <label for="email" class="form-label">Email Address</label>
+                            <input type="email" class="form-control" id="email" placeholder="your@email.com" required>
+                            <div class="error" id="emailError"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="password" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="password" placeholder="Enter password" required>
+                            <div class="error" id="passwordError"></div>
+                        </div>
+                        <button type="submit" class="btn btn-primary" style="width: 100%; padding: 10px; font-weight: 600;">Login</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 LearnHub. All rights reserved. | Built with ❤️ for learners worldwide</p>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            let currentSlide = 0;
+            const totalSlides = 3;
+
+            // Featured carousel
+            $('#nextBtn').click(function() {
+                currentSlide = (currentSlide + 1) % totalSlides;
+                updateCarousel();
+            });
+
+            $('#prevBtn').click(function() {
+                currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+                updateCarousel();
+            });
+
+            function updateCarousel() {
+                $('.carousel-item').removeClass('active');
+                $('.carousel-item').eq(currentSlide).addClass('active');
+            }
+
+            // Login form handling
+            $('#loginForm').on('submit', function(e) {
+                e.preventDefault();
+
+                const email = $('#email').val().trim();
+                const password = $('#password').val();
+
+                let isValid = true;
+
+                // Validate email
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailRegex.test(email)) {
+                    $('#emailError').text('Please enter a valid email').show();
+                    isValid = false;
+                } else {
+                    $('#emailError').hide();
+                }
+
+                // Validate password
+                if (password.length < 6) {
+                    $('#passwordError').text('Password must be at least 6 characters').show();
+                    isValid = false;
+                } else {
+                    $('#passwordError').hide();
+                }
+
+                if (isValid) {
+                    alert('✅ Login successful! Welcome to LearnHub');
+                    bootstrap.Modal.getInstance(document.getElementById('loginModal')).hide();
+                    $('#loginForm')[0].reset();
+                }
+            });
+
+            // Course enrollment
+            $(document).on('click', '.btn-enroll', function() {
+                const courseTitle = $(this).closest('.course-card').find('.course-title').text();
+                alert('✅ Successfully enrolled in: ' + courseTitle + '\n\nCheck your email for course details!');
+            });
+
+            // Smooth scroll on nav click
+            $('a[href^="#"]').click(function(e) {
+                e.preventDefault();
+                const target = $(this.getAttribute('href'));
+                if (target.length) {
+                    $('html, body').stop().animate({scrollTop: target.offset().top - 60}, 1000);
+                }
+            });
+
+            // Auto-slide featured carousel every 5 seconds
+            setInterval(function() {
+                $('#nextBtn').click();
+            }, 5000);
+        });
+    </script>
+</body>
+</html>
